@@ -1,0 +1,21 @@
+version: '2.2'
+services:
+  mysql-container:
+    image: mysql
+    environment:
+        # provide your credentials here
+        - MYSQL_ALLOW_EMPTY_PASSWORD=false
+        - MYSQL_DATABASE=mysql_demo
+        - MYSQL_USER=my_user_name
+        - MYSQL_PASSWORD=somethingSecret
+    ports:
+      - "3306:3306"
+    volumes:
+      - "D:/Github/python-fast-api:/var/run/mysql"
+
+    networks:
+      - lrodriguesNetwork
+
+networks:
+  lrodriguesNetwork:
+    driver: bridge

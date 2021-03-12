@@ -16,6 +16,14 @@ services:
     networks:
       - lrodriguesNetwork
 
+  redis:
+    image: redis
+    command: redis-server --requirepass Redis2019!
+    ports:
+      - "6379:6379"
+    networks:
+      - lrodriguesNetwork
+
 networks:
   lrodriguesNetwork:
     driver: bridge

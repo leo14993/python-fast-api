@@ -1,24 +1,20 @@
-"""
-Rotinas para acesso ao MySQL.
 
-Banco de dados MySQL criado no container local
-
-Seguem os dados para acesso:
-Hostname: 192.168.99.100
-Port: 3306
-Username: my_user_name
-Password: somethingSecret
-Database: mysql_demo
-"""
+import os
+from dotenv import load_dotenv
 from sqlalchemy import create_engine
 from sqlalchemy.ext.declarative import declarative_base, DeclarativeMeta
 
 from sqlalchemy.orm import sessionmaker
 
+env = ".env"
+dotenv_path = os.path.join('', env)
+load_dotenv(dotenv_path)
 
-SQLALCHEMY_DATABASE_URL = "mysql+mysqldb://my_user_name:somethingSecret@192.168.99.100:3306/mysql_demo"
-# SQLALCHEMY_DATABASE_URL = "postgresql://user:password@postgresserver/db"
-#
+
+SQLALCHEMY_DATABASE_URL = f"{os.getenv('DATABASE_ENGINE')}://{os.getenv('DATABASE_USER')}:" \
+                          f"{os.getenv('DATABASE_PASSWORD')}@{os.getenv('DATABASE_HOST')}:" \
+                          f"{os.getenv('DATABASE_PORT')}/{os.getenv('DATABASE_NAME')}"
+
 engine = create_engine(
     SQLALCHEMY_DATABASE_URL
 )

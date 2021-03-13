@@ -5,9 +5,12 @@ from pydantic import BaseModel
 from src.domain.schema.enderecoSchema import Endereco
 
 
-class PessoaFisicaBase(BaseModel):
-    nome: str
+class PessoaFisicaCPF(BaseModel):
+
     cpf: str
+
+class PessoaFisicaBase(PessoaFisicaCPF):
+    nome: str
     # nascimento: str
     # ToDo:
     #  acertar a forma de retornar um dado no tipo Date
@@ -19,7 +22,7 @@ class PessoaFisicaCreate(PessoaFisicaBase):
     #Todo:
     # criar busca do endereço informado,
     # caso necessario aproveitar o endereco_id,
-    # caso o endereco seja novo criar um endereco_id
+    # caso o endereco seja novo, criar um endereco_id
     #:ToDo
 
 

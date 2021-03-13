@@ -1,6 +1,6 @@
 from sqlalchemy.orm import Session
 
-from src.domain.entity.Endereco import Endereco
+from src.domain.entity.endereco import Endereco
 from src.domain.schema.enderecoSchema import EnderecoCreate
 
 

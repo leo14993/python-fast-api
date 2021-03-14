@@ -12,7 +12,6 @@ def raise_(exception):
 class PessoaService():
     def __init__(self, db):
 
-        super().__init__(db)
         self.db = db
         self.skip = 0
         self.limit = 100
@@ -69,12 +68,10 @@ class PessoaService():
         if get_pessoa:
             pessoa_id = get_pessoa.id
             endereco_valid = endereco_exist(db=self.db, endereco=pessoa.enderecos)
-            if endereco_valid:
-                endereco_id = endereco_valid.id
-            else:
+            if not endereco_valid:
                 endereco_valid = create_endereco(db=self.db, endereco=pessoa.enderecos)
-                endereco_id = endereco_valid.id
 
+            endereco_id = endereco_valid.id
 
             return add_endereco_pessoa(db=self.db, pessoa_id=pessoa_id, endereco_id=endereco_id)
 

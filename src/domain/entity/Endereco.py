@@ -2,6 +2,7 @@ from sqlalchemy import Column, Integer, String
 from sqlalchemy.orm import relationship
 
 from src.bootloader.database.configuration.database import Base
+from src.domain.entity.pessoaFisica import PessoaEndereco
 
 
 class Endereco(Base):
@@ -15,5 +16,9 @@ class Endereco(Base):
     bairro = Column(String(255))
     cidade = Column(String(255))
     estado = Column(String(255))
-
-    pessoa_fisica = relationship("PessoaFisica", back_populates="endereco")
+    pessoa_fisica = relationship(
+        "PessoaFisica",
+        secondary=PessoaEndereco.__tablename__,
+        back_populates="enderecos",
+        cascade="all, delete"
+    )

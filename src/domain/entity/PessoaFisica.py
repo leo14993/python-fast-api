@@ -1,7 +1,16 @@
-from sqlalchemy import Column, ForeignKey, Integer, String, Date
+from sqlalchemy import Column, ForeignKey, Integer, String, Date, Table
 from sqlalchemy.orm import relationship
 
 from src.bootloader.database.configuration.database import Base
+
+
+class PessoaEndereco(Base):
+    __tablename__ = 'pessoa_endereco'
+    pessoa_id = Column(Integer, ForeignKey('pessoa_fisica.id'), primary_key=True)
+    endereco_id = Column(Integer, ForeignKey('enderecos.id'), primary_key=True)
+    #ToDo:
+    # Criar relacionamento unique together entre pessoa_id e endereco_id para evitar duplicidades no banco
+    #:ToDo
 
 
 class PessoaFisica(Base):
@@ -9,8 +18,12 @@ class PessoaFisica(Base):
 
     id = Column(Integer, primary_key=True)
     nome = Column(String(255))
-    cpf = Column(String(11))
-    nascimento = Column(Date)
-    endereco_id = Column(Integer, ForeignKey('enderecos.id'))
+    cpf = Column(String(11), unique=True)
+    data_nascimento = Column(Date)
 
-    endereco = relationship("Endereco", back_populates="pessoa_fisica")
+    enderecos = relationship(
+        "Endereco",
+        secondary=PessoaEndereco.__tablename__,
+        back_populates="pessoa_fisica",
+        cascade="all, delete"
+    )

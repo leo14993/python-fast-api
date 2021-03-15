@@ -1,3 +1,4 @@
+
 from main import app
 from src.bootloader.database.configuration.redis import redis_cache
 
@@ -17,3 +18,5 @@ def delete_key(key: str):
 @app.get("/keys_redis")
 def keys_redis():
     return redis_cache.keys()
+
+

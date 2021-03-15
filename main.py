@@ -7,5 +7,7 @@ from src.domain.controller.enderecoController import *
 from src.domain.controller.pessoaFisicaController import *
 from src.domain.controller.eventosPessoaController import *
 from src.domain.controller.redisManagerController import *
+from src.domain.controller.authController import *
+
 
 

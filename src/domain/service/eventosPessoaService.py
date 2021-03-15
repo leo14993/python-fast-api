@@ -1,7 +1,4 @@
-from fastapi import HTTPException, Depends
-from sqlalchemy.orm import Session
-
-from src.bootloader.database.configuration.database import get_db
+from fastapi import HTTPException
 from src.bootloader.database.configuration.redis import redis_cache
 from src.domain.entity.eventosPessoa import EventosPessoa
 from src.domain.repository.pessoaFisicaRepository import cpf_exists
@@ -24,14 +21,14 @@ class EventoPessoaService:
 
         return event
 
-    def get_evento(self, pessoa):
+    def get(self, pessoa):
         event_exist = self.check_cpf(pessoa.cpf)
         if event_exist:
             return event_exist
         else:
             raise HTTPException(status_code=400, detail="Sem informações para este CPF")
 
-    def create_update_evento(self, pessoa):
+    def create_update(self, pessoa):
         pessoa_create = EventosPessoa(
             cpf=pessoa.cpf,
             ultimaConsulta=pessoa.ultimaConsulta,
@@ -49,15 +46,15 @@ class EventoPessoaService:
             raise HTTPException(status_code=400, detail=f"Problemas ao salvar informações no cache. Exception: {e}")
 
 
-    def create_evento(self, pessoa):
+    def create(self, pessoa):
         evento_exist = self.check_cpf(pessoa.cpf)
         if evento_exist:
-            raise HTTPException(status_code=400, detail="Evento do CPF já existe!")
+            raise HTTPException(status_code=403, detail="Evento do CPF já existe!")
 
         return self.create_update_evento(pessoa)
 
 
-    def update_evento(self, pessoa):
+    def update(self, pessoa):
         evento_exist = self.check_cpf(pessoa.cpf)
         if evento_exist:
             return self.create_update_evento(pessoa)

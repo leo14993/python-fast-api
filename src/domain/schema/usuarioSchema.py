@@ -8,6 +8,7 @@ from src.domain.schema.responsabilidadeSchema import ResponsabilidadeSchema
 class UsuarioBase(BaseModel):
 
     login: str
+    email: str
 
 class UsuarioResponsabilidade(UsuarioBase):
 
@@ -19,12 +20,12 @@ class UsuarioAtivo(UsuarioBase):
 
 
 class UsuarioCreate(UsuarioBase):
+
     senha: str
 
 
 class UsuarioSchema(UsuarioAtivo):
 
-    email: str
     responsabilidade: List[ResponsabilidadeSchema] = []
 
     class Config:

@@ -8,3 +8,6 @@ PyMySQL
 mysqlclient
 pydantic
 redis
+py-bcrypt
+python-dotenv==0.15.0
+

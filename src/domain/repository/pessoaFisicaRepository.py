@@ -9,11 +9,11 @@ def get_pessoas(db: Session, skip: int = 0, limit: int = 100):
 
 
 def get_pessoa_by_cpf(db: Session, cpf: str):
-    return db.query(PessoaFisica).filter(PessoaFisica.cpf == cpf).first()
+    return db.query(PessoaFisica).filter(PessoaFisica.cpf.like(cpf)).first()
 
 
 def cpf_exists(db: Session, cpf: str):
-    return db.query(PessoaFisica.cpf).filter(PessoaFisica.cpf == cpf).first()
+    return db.query(PessoaFisica.cpf).filter(PessoaFisica.cpf.like(cpf)).first()
 
 
 def create_pessoa(db: Session, pessoa: PessoaFisicaCreate):
@@ -39,11 +39,11 @@ def delete_pessoa(db: Session, pessoa: PessoaFisicaCreate):
     return "deletado"
 
 
-def add_endereco_pessoa(db: Session, pessoa_id: int, endereco_id: int):
+def insert_endereco_pessoa(db: Session, pessoa_id: int, endereco_id: int):
 
     db_pessoa_endereco = PessoaEndereco(pessoa_id=pessoa_id, endereco_id=endereco_id)
     db.add(db_pessoa_endereco)
     db.commit()
     db.refresh(db_pessoa_endereco)
 
-    return "Endereço associado a pessoa física com sucesso!"
+    return dict(detail="Endereço associado a pessoa física com sucesso!")

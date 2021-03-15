@@ -16,7 +16,7 @@ def list_todas_pessoas(db: Session = Depends(get_db)):
     return pessoas
 
 
-@app.get("/pessoa", response_model=PessoaFisicaSchema)
+@app.post("/get_pessoa", response_model=PessoaFisicaSchema)
 def list_pessoa(cpf: PessoaFisicaCPF, db: Session = Depends(get_db)):
     pessoa_service = PessoaService(db)
     pessoa = pessoa_service.get(cpf)
@@ -38,7 +38,7 @@ def delete_pessoa(pessoa: PessoaFisicaCPF, db: Session = Depends(get_db)):
     pessoa_service = PessoaService(db)
     return pessoa_service.delete(pessoa=pessoa)
 
-@app.post("/pessoa/endereco", response_model=str)
+@app.post("/pessoa/endereco", response_model=dict)
 def create_endereco_pessoa(pessoa: PessoaFisicaEndereco, db: Session = Depends(get_db)):
     pessoa_service = PessoaService(db)
     return pessoa_service.create_endereco_pessoa(pessoa=pessoa)

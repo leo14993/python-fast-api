@@ -8,8 +8,8 @@ from typing import List
 
 
 @app.get("/enderecos", response_model=List[EnderecoSchema])
-def read_enderecos(skip: int = 0, limit: int = 100, db: Session = Depends(get_db)):
-    enderecos = get_enderecos(db=db, skip=skip, limit=limit)
+def read_enderecos(db: Session = Depends(get_db)):
+    enderecos = get_enderecos(db=db)
     return enderecos
 
 

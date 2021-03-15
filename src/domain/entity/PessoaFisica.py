@@ -27,3 +27,7 @@ class PessoaFisica(Base):
         back_populates="pessoa_fisica",
         cascade="all, delete"
     )
+
+    # ToDo:
+    # validar campos de cpf para inserir exatamente 11 caracteres do tipo int
+    #:ToDo

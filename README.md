@@ -1,5 +1,6 @@
 # python-fast-api
 
+
 Instalar as dependencias necessarias com o comando:
 
 - pip install -r requirements.txt
@@ -74,5 +75,7 @@ Dentro de /src temos:
 
     Gerencia a lógica da regra de negócio, são chamados logo após o controller, gerenciam a comunicação das entidades e dos repositórios,
     validando, ativando funções, e gerando exceções.
+
+
 
 
